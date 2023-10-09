@@ -41,16 +41,33 @@ async function sprintChallenge5() { // Note the async keyword, in case you wish 
     card.addEventListener('click', () => {
       //remove selected from all cards
       document.querySelectorAll('.card').forEach((cardProxy) => {
-        cardProxy.classList.remove('selected');
+          
+        if (cardProxy.classList.contains('selected')) {
+          cardProxy.classList.remove('selected');
+          let nameString = cardProxy.firstChild.textContent;
+          let proxy = nameString.split(',')
+          cardProxy.firstChild.textContent = proxy[0]
+        }
+        
       });
       name.textContent = `${fullName}, ID ${id}`
-      card.classList.toggle('selected')
+      if (card.classList.contains('selected')) {
+        card.classList.remove('selected');
+        name.textContent = fullName;
+      }
+      else {
+        card.classList.add('selected')
+      }
+      
       //update p.info
       let selectedElement = document.querySelector('.selected');
       if (selectedElement) {
         let selectedName = selectedElement.firstChild.textContent
         selectedName = selectedName.split(',')
         document.querySelector('.info').textContent = `The selected learner is ${selectedName[0]}`
+      }
+      else {
+        document.querySelector('.info').textContent = `No learner is selected`
       }
       
     })
