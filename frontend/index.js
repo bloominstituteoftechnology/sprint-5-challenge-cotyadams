@@ -32,10 +32,12 @@ async function sprintChallenge5() { // Note the async keyword, in case you wish 
     })
    
     //add click for mentors
-    mentor.addEventListener('click', () => {
+    mentor.addEventListener('click', (event) => {
       mentor.classList.toggle('closed');
       mentor.classList.toggle('open');
-      event.stopPropagation();
+      if (card.classList.contains('selected')) {
+        event.stopPropagation();
+      }
     })
     //add click function for whole card
     card.addEventListener('click', (event) => {
