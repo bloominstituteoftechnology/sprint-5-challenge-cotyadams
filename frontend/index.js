@@ -46,10 +46,13 @@ async function sprintChallenge5() { // Note the async keyword, in case you wish 
       name.textContent = `${fullName}, ID ${id}`
       card.classList.toggle('selected')
       //update p.info
+      let selectedElement = document.querySelector('.selected');
+      if (selectedElement) {
+        let selectedName = selectedElement.firstChild.textContent
+        selectedName = selectedName.split(',')
+        document.querySelector('.info').textContent = `The selected learner is ${selectedName[0]}`
+      }
       
-      let selectedName = document.querySelector('.selected').firstChild.textContent
-      selectedName = selectedName.split(',')
-      document.querySelector('.info').textContent = `The selected learner is ${selectedName[0]}`
     })
     card.appendChild(name)
     card.appendChild(emailAddress)
