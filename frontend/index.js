@@ -35,27 +35,32 @@ async function sprintChallenge5() { // Note the async keyword, in case you wish 
     mentor.addEventListener('click', () => {
       mentor.classList.toggle('closed');
       mentor.classList.toggle('open');
-
+      event.stopPropagation();
     })
     //add click function for whole card
-    card.addEventListener('click', () => {
+    card.addEventListener('click', (event) => {
       //remove selected from all cards
+      let isSelected = card.classList.contains('selected');
       document.querySelectorAll('.card').forEach((cardProxy) => {
           
         if (cardProxy.classList.contains('selected')) {
           cardProxy.classList.remove('selected');
+          //reset ID
           let nameString = cardProxy.firstChild.textContent;
-          let proxy = nameString.split(',')
+          let proxy = nameString.split(',');
           cardProxy.firstChild.textContent = proxy[0]
         }
         
       });
       name.textContent = `${fullName}, ID ${id}`
-      if (card.classList.contains('selected')) {
+      if (isSelected && event.target.textContent == 'Mentors') {
+        console.log('you clicked mentors');
+      }
+      else if (isSelected) {
         card.classList.remove('selected');
         name.textContent = fullName;
       }
-      else {
+      else if (!isSelected) {
         card.classList.add('selected')
       }
       
